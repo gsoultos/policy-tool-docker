@@ -1,0 +1,8 @@
+FROM node:16
+ARG BACKEND_HOST
+ENV BACKEND_HOST http://policy-tool-service:8080
+RUN git clone https://github.com/gsoultos/policy-tool.git
+WORKDIR /policy-tool
+RUN npm install
+EXPOSE 3000
+CMD [ "npm", "run", "start" ]

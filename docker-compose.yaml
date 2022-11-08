@@ -1,0 +1,29 @@
+version: '3'
+services:
+  policy-tool-backend:
+    build: 
+      dockerfile: Dockerfile-backend
+    image: policy-tool-backend
+    container_name: policy-tool-backend
+    networks:
+      - policy-tool-network
+    ports:
+      - "8080:8080"
+  
+  policy-tool-frontend:
+    build: 
+      dockerfile: Dockerfile-frontend
+      args:
+        - BACKEND_HOST=http://policy-tool-backend:8080
+    image: policy-tool-frontend
+    container_name: policy-tool-frontend
+    networks:
+      - policy-tool-network
+    ports:
+      - "3000:3000"
+    depends_on:
+      - policy-tool-backend
+
+networks:
+  policy-tool-network:
+    name: policy-tool-network
